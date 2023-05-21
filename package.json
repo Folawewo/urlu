@@ -1,0 +1,29 @@
+{
+  "name": "urlu",
+  "version": "1.0.0",
+  "description": "URL Shortener",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Folawewo/urlu.git"
+  },
+  "keywords": [
+    "URL",
+    "Shortener"
+  ],
+  "author": "Folawewo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Folawewo/urlu/issues"
+  },
+  "homepage": "https://github.com/Folawewo/urlu#readme",
+  "dependencies": {
+    "bytewatch": "^1.0.2",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.2"
+  }
+}
