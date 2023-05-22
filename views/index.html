@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>📥 URLU - More Than URL Shortener</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 6px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 36px;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 400px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #6c63ff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #594dff;
+        }
+
+        .message {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: #594dff;
+        }
+
+        .icon {
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>URLU POST IT TO YOUR 📨</h1>
+
+        <form id="shorten-form">
+            <input type="text" id="longUrl" placeholder="Enter a URL" required>
+            <br>
+            <input type="text" id="recipientEmail" placeholder="Enter your email address" required>
+            <br>
+            <input type="submit" value="Shorten URL">
+        </form>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        document.getElementById("shorten-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const longUrl = document.getElementById("longUrl").value;
+            const recipientEmail = document.getElementById("recipientEmail").value;
+
+            fetch("/shorten", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    url: longUrl,
+                    email: recipientEmail
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        showMessage(data.error, "error");
+                    } else {
+                        const message = `URL has been generated and sent to your email address.`;
+                        showMessage(message, "success");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    showMessage("An error occurred. Please try again later.", "error");
+                });
+        });
+
+        function showMessage(message, type) {
+            const messageElement = document.getElementById("message");
+            messageElement.textContent = message;
+
+            if (type === "error") {
+                messageElement.classList.add("error");
+                messageElement.classList.remove("success");
+            } else if (type === "success") {
+                messageElement.classList.add("success");
+                messageElement.classList.remove("error");
+            }
+        }
+    </script>
+</body>
+
+</html>
