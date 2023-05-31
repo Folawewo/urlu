@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>📥 URLU - More Than URL Shortener</title>
+    <title>📦 URLU - More Than URL Shortener</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -80,10 +80,10 @@
 
 <body>
     <div class="container">
-        <h1>URLU POST IT TO YOUR 📨</h1>
+        <h1>URLU POST IT TO YOUR MAIL</h1>
 
         <form id="shorten-form">
-            <input type="text" id="longUrl" placeholder="Enter a URL" required>
+            <input type="text" id="longUrl" placeholder="Enter a URL - https://www.evolvecredit.co" required>
             <br>
             <input type="text" id="recipientEmail" placeholder="Enter your email address" required>
             <br>
@@ -100,7 +100,7 @@
             const longUrl = document.getElementById("longUrl").value;
             const recipientEmail = document.getElementById("recipientEmail").value;
 
-            fetch("/shorten", {
+            fetch("https://urlu.azurewebsites.net/shorten", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
